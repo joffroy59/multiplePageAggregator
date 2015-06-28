@@ -68,22 +68,6 @@
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="panel panel-primary" id="panel-exemple-static">
-                        <div class="panel-heading">
-                            Primary Panel
-                        </div>
-                        <div class="panel-body">
-                            <iframe id="iframeTest" src="" width="100%" height="300"></iframe>
-                        </div>
-                        <div class="panel-footer">
-                            <button id="buttonTest">Load</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.row -->
-            <div class="row">
                 <!-- /.col-lg-4 -->
                 <div class="col-lg-4">
                     <div class="panel panel-default">
@@ -294,10 +278,7 @@
 	<script>
 	
 	var iframeIdBase = 'iframePP_'
-	function createDivAndIframe(iframeId){
-		//alert('createDivAndIframe: '+iframeId)
-		$('#panel-exemple-static').parent().after('<div class="col-lg-4"><div class="panel panel-primary"><div class="panel-heading">Primary Panel</div><div class="panel-body"><iframe id="iframe_0" src="" width="100%" height="300"></iframe></div><div class="panel-footer"><button id="button0">Load</button></div></div></div>')
-
+	function createDivAndIframeWithButtonJQ($anchor,iframeId,url){
 		var $divCol = $("<div>", {class: "col-lg-4"});
 		var $divPanel = $("<div>", {class: "panel panel-primary"});
 		$divCol.append($divPanel)
@@ -305,24 +286,24 @@
 		$divColPanelH.text("Primary Panel")
 		$divPanel.append($divColPanelH)		
 		var $divColPanelB = $("<div>", {class: "panel-body"});
-		$iframe=$("<iframe>", {id:'iframePP_0',width:'100%', height:'300'})
+		$iframe=$("<iframe>", {id: iframeId, width:'100%', height:'300'})
 		$divColPanelB.append($iframe)
 		$divPanel.append($divColPanelB)		
 		var $divColPanelF = $("<div>", {class: "panel-footer"});
-		var $iframeButton = $("<button>", {id: "booton0"});
+		var $iframeButton = $("<button>", {id: "booton"+iframeId});
 		
 		$iframeButton.text("Load")
 		$divColPanelF.append($iframeButton)
 		$divPanel.append($divColPanelF)		
 		
-		$('#panel-pp-static').parent().after($divCol);
+		$anchor.parent().after($divCol);
 
 		$iframeButton.click(function () { 
-		  $iframe.attr("src", "http://mafreebox.freebox.fr/");
+			$('#' + iframeId).attr("src", url);
 		});
 		
 	}
-
+	
 	function setUrl(iframeId,url){
 		//alert('setUrl: '+url+' in iframe with id:'+iframeId)
 	}
@@ -335,11 +316,18 @@
 	
 	
 		
-		urls = ["http://mafreebox.freebox.fr/"]
+		urls = [
+			"http://mafreebox.freebox.fr/", 
+			"http://192.168.0.101/", 
+			"http://mafreebox.freebox.fr/"
+		]
+		
 		$.each(urls, function( index, value ) {
 			//alert( index + ": " + value );
 			currentDivIframeId = getIframeId(index)
-			createDivAndIframe(currentDivIframeId);
+			createDivAndIframeWithButtonJQ($('#panel-pp-static'), currentDivIframeId,value);
+			
+			//createDivAndIframe(currentDivIframeId);
 			setUrl(currentDivIframeId,value)
 			// TODO set auto refresh ...
 		});
@@ -351,9 +339,6 @@
 		  $("#iframeW").attr("src", "http://192.168.0.101/");
 		});
 
-		$("#button0").click(function () { 
-		  $("#iframe_0").attr("src", "http://mafreebox.freebox.fr/");
-		});
 		
 	</script
 
