@@ -60,19 +60,46 @@
                         <!-- .panel-heading -->
                         <div class="panel-body">
                             <div class="panel-group" id="accordion">
+							
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">PreProduction</a>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Collapsible Group Item #1</a>
                                         </h4>
                                     </div>
-                                    <div id="collapseOne" class="panel-collapse collapse in">
+                                    <div id="collapseOne" class="panel-collapse collapse">
                                         <div class="panel-body">
-											<div class="row" id="panel-pp-static"/>
-											</div>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Collapsible Group Item #2</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Collapsible Group Item #3</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        </div>
+                                    </div>
+                                </div>
+								
                             </div>
                         </div>
                         <!-- .panel-body -->
@@ -102,24 +129,48 @@
 	
 	<script>
 	
-	var iframeIdBase = 'iframePP_'
-	function createDivAndIframeWithButtonJQ($anchor,iframeId,url){
+	var group=[
+			{
+				"name":"Pré-Production",
+				"id":"PP",
+				"loadIframeOnPageLoad":false,
+				"urls":[
+					"http://mafreebox.freebox.fr/", 
+					"http://192.168.0.101/", 
+					"http://mafreebox.freebox.fr/"
+				]
+			},
+			{
+				"name":"Production",
+				"id":"Prod",
+				"loadIframeOnPageLoad":true,
+				"urls":[
+					//"http://www.shaunwhite.com/",
+					"https://2015.xoxofest.com/",
+					"http://lorempixel.com/295/295/",
+					"http://lorempixel.com/295/295/",
+				]
+			}
+		]
+	
+	var iframeIdBase = 'iframe'
+	function createDivAndIframeWithButtonJQ($anchor,iframeId,url,loadIframeOnPageLoad){
 		var $divCol = $("<div>", {class: "col-lg-4"});
-		var $divPanel = $("<div>", {class: "panel panel-primary panel-yellow"});
-		$divCol.append($divPanel)
+		var $divPanelHeading = $("<div>", {class: "panel panel-primary panel-yellow"});
+		$divCol.append($divPanelHeading)
 		var $divColPanelH = $("<div>", {class: "panel-heading"});
 		$divColPanelH.text("Primary Panel")
-		$divPanel.append($divColPanelH)		
+		$divPanelHeading.append($divColPanelH)		
 		var $divColPanelB = $("<div>", {class: "panel-body"});
-		$iframe=$("<iframe>", {id: iframeId, width:'100%', height:'300', src:url})
+		$iframe=$("<iframe>", {id: iframeId, width:'100%', height:'300', src:loadIframeOnPageLoad?url:''})
 		$divColPanelB.append($iframe)
-		$divPanel.append($divColPanelB)		
+		$divPanelHeading.append($divColPanelB)		
 		var $divColPanelF = $("<div>", {class: "panel-footer"});
 		var $iframeButton = $("<button>", {id: "booton"+iframeId});
 		
 		$iframeButton.text("Refresh")
 		$divColPanelF.append($iframeButton)
-		$divPanel.append($divColPanelF)		
+		$divPanelHeading.append($divColPanelF)		
 		
 		$anchor.append($divCol);
 
@@ -129,41 +180,45 @@
 		
 	}
 	
-	function setUrl(iframeId,url){
-		//alert('setUrl: '+url+' in iframe with id:'+iframeId)
-	}
-	function getIframeId(index){
-		var iframeId = iframeIdBase + index
-		//alert('getIframeId:'+iframeId)
+	function getIframeId(groupIdBase,index){
+		var iframeId = iframeIdBase + '_' + groupIdBase + '_' + index
 		return iframeId
 	}
 	
-	
-	
-		
-		urls = [
-			"http://mafreebox.freebox.fr/", 
-			"http://192.168.0.101/", 
-			"http://mafreebox.freebox.fr/"
-		]
-		
-		$.each(urls, function( index, value ) {
-			//alert( index + ": " + value );
-			currentDivIframeId = getIframeId(index)
-			createDivAndIframeWithButtonJQ($('#panel-pp-static'), currentDivIframeId,value);
-			
-			//createDivAndIframe(currentDivIframeId);
-			setUrl(currentDivIframeId,value)
-			// TODO set auto refresh ...
-		});
+	function createGroup(groupId,groupName){
 
-		$("#buttonTest").click(function () { 
-		  $("#iframeTest").attr("src", "http://192.168.0.101/");
-		});
-		$("#buttonW").click(function () { 
-		  $("#iframeW").attr("src", "http://192.168.0.101/");
-		});
+		collapseId="collapse_"+groupId
+		panelId="panel-pp-static"
+		$divGlobal = $("<div>",{class:"panel panel-default"})
+		$divPanelHeading = $("<div>",{class:"panel-heading"})
+		$divTitle = $("<h4>",{class:"panel-title"})
+		$divTitle.append('<a data-toggle="collapse" data-parent="#accordion" href="#'+collapseId+'">'+groupName+'</a>')
+		
+		$divPanelHeading.append($divTitle)
+		$divGlobal.append($divPanelHeading)
 
+		$divPanelBody = $("<div>",{class:"panel-collapse collapse in", id:collapseId})
+		$divPanelBodyContent = $("<div>",{class:"panel-body"})
+		$divPanelBodyContent.append('<div class="row" id="'+panelId+'"/></div>')
+		$divPanelBody.append($divPanelBodyContent)
+
+		$divGlobal.append($divPanelBody)
+		
+		$('#accordion').prepend($divGlobal)
+	}
+	
+
+		$.each(group.reverse(), function( index, value ) {
+			groupIdBase=value["id"]
+			createGroup(groupIdBase,value["name"])
+			loadIframeOnPageLoad=value["loadIframeOnPageLoad"]
+			$.each(value["urls"], function( index, value ) {
+				currentDivIframeId = getIframeId(groupIdBase,index)
+				createDivAndIframeWithButtonJQ($('#panel-pp-static'), currentDivIframeId,value,loadIframeOnPageLoad);
+				
+				// TODO set auto refresh ...
+			});
+		});
 		
 	</script
 
