@@ -128,16 +128,26 @@
     <script src="../dist/js/sb-admin-2.js"></script>
 	
 	<script>
-	
+
+	var iframeRefresh=5000;
 	var group=[
 			{
 				"name":"Pré-Production",
 				"id":"PP",
 				"loadIframeOnPageLoad":false,
 				"urls":[
-					"http://mafreebox.freebox.fr/", 
-					"http://192.168.0.101/", 
-					"http://mafreebox.freebox.fr/"
+					{
+						"name":"PP 01",
+						"url":"http://mafreebox.freebox.fr/",
+					},
+					{
+						"name":"PP 01",
+						"url":"http://192.168.0.101/",
+					},
+					{
+						"name":"PP 01",
+						"url":"http://mafreebox.freebox.fr/",
+					},
 				]
 			},
 			{
@@ -145,22 +155,34 @@
 				"id":"Prod",
 				"loadIframeOnPageLoad":true,
 				"urls":[
-					//"http://www.shaunwhite.com/",
-					//"https://2015.xoxofest.com/",
-					"http://lorempixel.com/295/295/",
-					"http://lorempixel.com/295/295/",
-					"http://lorempixel.com/295/295/",
+					//TODO"http://www.shaunwhite.com/",
+					//TODO"https://2015.xoxofest.com/",
+					{
+						"name":"Prod 01",
+						"url":"http://lorempixel.com/295/295/",
+					},
+					{
+						"name":"Prod 02",
+						"url":"http://lorempixel.com/295/295/",
+					},
+					{
+						"name":"Prod 03",
+						"url":"http://lorempixel.com/295/295/",
+					},
 				]
 			}
 		]
 	
 	var iframeIdBase = 'iframe'
-	function createDivAndIframeWithButtonJQ($anchor,iframeId,url,loadIframeOnPageLoad){
+
+	function createDivAndIframeWithButtonJQ($anchor,iframeId,zoneWithUrl,loadIframeOnPageLoad){
+		var url = zoneWithUrl["url"]
+		var urlName = zoneWithUrl["name"]
 		var $divCol = $("<div>", {class: "col-lg-4"});
 		var $divPanelHeading = $("<div>", {class: "panel panel-primary panel-yellow"});
 		$divCol.append($divPanelHeading)
 		var $divColPanelH = $("<div>", {class: "panel-heading"});
-		$divColPanelH.text("Primary Panel")
+		$divColPanelH.text(urlName)
 		$divPanelHeading.append($divColPanelH)		
 		var $divColPanelB = $("<div>", {class: "panel-body"});
 		$iframe=$("<iframe>", {id: iframeId, width:'100%', height:'300', src:loadIframeOnPageLoad?url:''})
@@ -216,23 +238,20 @@
 		
 		$('#accordion').prepend($divGlobal)
 	}
-	
 
-		$.each(group.reverse(), function( index, value ) {
-			groupIdBase=value["id"]
-			createGroup(groupIdBase,value["name"])
-			loadIframeOnPageLoad=value["loadIframeOnPageLoad"]
-			$.each(value["urls"], function( index, value ) {
-				currentDivIframeId = getIframeId(groupIdBase,index)
-				createDivAndIframeWithButtonJQ($('#panel-pp-static'), currentDivIframeId,value,loadIframeOnPageLoad);
-				
-				// TODO set auto refresh ...
-			});
+	$.each(group.reverse(), function( index, value ) {
+		groupIdBase=value["id"]
+		createGroup(groupIdBase,value["name"])
+		loadIframeOnPageLoad=value["loadIframeOnPageLoad"]
+		$.each(value["urls"], function( index, value ) {
+			currentDivIframeId = getIframeId(groupIdBase,index)
+			createDivAndIframeWithButtonJQ($('#panel-pp-static'), currentDivIframeId,value,loadIframeOnPageLoad);
 		});
+	});
 		
 		
 		
-		window.setInterval("reloadIFrame();", 5000);
+		window.setInterval("reloadIFrame();", iframeRefresh);
 
 		function reloadIFrame() {
 			$('iframe').each(function() {
