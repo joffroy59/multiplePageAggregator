@@ -286,13 +286,13 @@
 		$divColPanelH.text("Primary Panel")
 		$divPanel.append($divColPanelH)		
 		var $divColPanelB = $("<div>", {class: "panel-body"});
-		$iframe=$("<iframe>", {id: iframeId, width:'100%', height:'300'})
+		$iframe=$("<iframe>", {id: iframeId, width:'100%', height:'300', src:url})
 		$divColPanelB.append($iframe)
 		$divPanel.append($divColPanelB)		
 		var $divColPanelF = $("<div>", {class: "panel-footer"});
 		var $iframeButton = $("<button>", {id: "booton"+iframeId});
 		
-		$iframeButton.text("Load")
+		$iframeButton.text("Refresh")
 		$divColPanelF.append($iframeButton)
 		$divPanel.append($divColPanelF)		
 		
