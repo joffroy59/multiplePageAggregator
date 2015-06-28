@@ -146,7 +146,8 @@
 				"loadIframeOnPageLoad":true,
 				"urls":[
 					//"http://www.shaunwhite.com/",
-					"https://2015.xoxofest.com/",
+					//"https://2015.xoxofest.com/",
+					"http://lorempixel.com/295/295/",
 					"http://lorempixel.com/295/295/",
 					"http://lorempixel.com/295/295/",
 				]
@@ -220,7 +221,17 @@
 			});
 		});
 		
-	</script
+		
+		
+		window.setInterval("reloadIFrame();", 5000);
+
+		function reloadIFrame() {
+			$('iframe').each(function() {
+			  $(this).attr("src", $(this).attr("src"));
+			});
+		 }
+
+	</script>
 
 </body>
 
