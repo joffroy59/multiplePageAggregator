@@ -198,10 +198,9 @@
 		return iframeId
 	}
 	
-	function createGroup(groupId,groupName){
+	function createGroup(groupId,panelId,groupName){
 
 		collapseId="collapse_"+groupId
-		panelId="panel-pp-static"
 		$divGlobal = $("<div>",{class:"panel panel-default"})
 		$divPanelHeading = $("<div>",{class:"panel-heading"})
 		$divTitle = $("<h4>",{class:"panel-title"})
@@ -221,24 +220,23 @@
 	}
 
 	$.each(group.reverse(), function( index, value ) {
-		groupIdBase=value["id"]
-		createGroup(groupIdBase,value["name"])
+		groupIdBase = value["id"]
+		panelAnchorId = "panel-anchor-"+groupIdBase
+		createGroup(groupIdBase, panelAnchorId, value["name"])
 		loadIframeOnPageLoad=value["loadIframeOnPageLoad"]
 		$.each(value["urls"], function( index, value ) {
-			currentDivIframeId = getIframeId(groupIdBase,index)
-			createDivAndIframeWithButtonJQ($('#panel-pp-static'), currentDivIframeId,value,loadIframeOnPageLoad);
+			currentDivIframeId = getIframeId(groupIdBase, index)
+			createDivAndIframeWithButtonJQ($('#'+panelAnchorId), currentDivIframeId, value, loadIframeOnPageLoad);
 		});
 	});
-		
-		
-		
-		window.setInterval("reloadIFrame();", iframeRefresh);
 
-		function reloadIFrame() {
-			$('iframe').each(function() {
-			  $(this).attr("src", $(this).attr("src"));
-			});
-		 }
+	window.setInterval("reloadIFrame();", iframeRefresh);
+
+	function reloadIFrame() {
+		$('iframe').each(function() {
+		  $(this).attr("src", $(this).attr("src"));
+		});
+	 }
 
 	</script>
 
