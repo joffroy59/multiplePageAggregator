@@ -167,16 +167,25 @@
 		$divColPanelB.append($iframe)
 		$divPanelHeading.append($divColPanelB)		
 		var $divColPanelF = $("<div>", {class: "panel-footer"});
-		var $iframeButton = $("<button>", {id: "booton"+iframeId});
+
+		var $iframeButtonRefresh = $("<button>", {id: "booton"+iframeId});		
+		$iframeButtonRefresh.text("Refresh")
+		$divColPanelF.append($iframeButtonRefresh)
+
+		var $iframeButtonReset = $("<button>", {id: "bootonReset"+iframeId});		
+		$iframeButtonReset.text("Reset")
+		$divColPanelF.append($iframeButtonReset)
 		
-		$iframeButton.text("Refresh")
-		$divColPanelF.append($iframeButton)
 		$divPanelHeading.append($divColPanelF)		
 		
 		$anchor.append($divCol);
 
-		$iframeButton.click(function () { 
+		$iframeButtonRefresh.click(function () { 
 			$('#' + iframeId).attr("src", url);
+		});
+
+		$iframeButtonReset.click(function () { 
+			$('#' + iframeId).attr("src", "");
 		});
 		
 	}
