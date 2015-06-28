@@ -53,6 +53,39 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-4">
+                    <div class="panel panel-primary" id="panel-pp-static">
+                        <div class="panel-heading">
+                            Primary Panel
+                        </div>
+                        <div class="panel-body">
+                            <iframe id="iframeW" src="" width="100%" height="300"></iframe>
+                        </div>
+                        <div class="panel-footer">
+                            <button id="buttonW">Load</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="panel panel-primary" id="panel-exemple-static">
+                        <div class="panel-heading">
+                            Primary Panel
+                        </div>
+                        <div class="panel-body">
+                            <iframe id="iframeTest" src="" width="100%" height="300"></iframe>
+                        </div>
+                        <div class="panel-footer">
+                            <button id="buttonTest">Load</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <!-- /.col-lg-4 -->
+                <div class="col-lg-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Default Panel
@@ -72,10 +105,10 @@
                             Primary Panel
                         </div>
                         <div class="panel-body">
-                            <iframe id="frameTest" src="" width="100%" height="300"></iframe>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
                         </div>
                         <div class="panel-footer">
-                            <button id="button">Load</button>
+                            Panel Footer
                         </div>
                     </div>
                 </div>
@@ -263,8 +296,31 @@
 	var iframeIdBase = 'iframePP_'
 	function createDivAndIframe(iframeId){
 		//alert('createDivAndIframe: '+iframeId)
-		$('.panel-primary').parent().after('<div class="col-lg-4"><div class="panel panel-primary"><div class="panel-heading">Primary Panel</div><div class="panel-body"><iframe id="iframePP_0" src="" width="100%" height="300"></iframe></div><div class="panel-footer"><button id="button0">Load</button></div></div></div>')
+		$('#panel-exemple-static').parent().after('<div class="col-lg-4"><div class="panel panel-primary"><div class="panel-heading">Primary Panel</div><div class="panel-body"><iframe id="iframe_0" src="" width="100%" height="300"></iframe></div><div class="panel-footer"><button id="button0">Load</button></div></div></div>')
 
+		var $divCol = $("<div>", {class: "col-lg-4"});
+		var $divPanel = $("<div>", {class: "panel panel-primary"});
+		$divCol.append($divPanel)
+		var $divColPanelH = $("<div>", {class: "panel-heading"});
+		$divColPanelH.text("Primary Panel")
+		$divPanel.append($divColPanelH)		
+		var $divColPanelB = $("<div>", {class: "panel-body"});
+		$iframe=$("<iframe>", {id:'iframePP_0',width:'100%', height:'300'})
+		$divColPanelB.append($iframe)
+		$divPanel.append($divColPanelB)		
+		var $divColPanelF = $("<div>", {class: "panel-footer"});
+		var $iframeButton = $("<button>", {id: "booton0"});
+		
+		$iframeButton.text("Load")
+		$divColPanelF.append($iframeButton)
+		$divPanel.append($divColPanelF)		
+		
+		$('#panel-pp-static').parent().after($divCol);
+
+		$iframeButton.click(function () { 
+		  $iframe.attr("src", "http://mafreebox.freebox.fr/");
+		});
+		
 	}
 
 	function setUrl(iframeId,url){
@@ -288,12 +344,15 @@
 			// TODO set auto refresh ...
 		});
 
-		$("#button").click(function () { 
-		  $("#frameTest").attr("src", "http://192.168.0.101/");
+		$("#buttonTest").click(function () { 
+		  $("#iframeTest").attr("src", "http://192.168.0.101/");
+		});
+		$("#buttonW").click(function () { 
+		  $("#iframeW").attr("src", "http://192.168.0.101/");
 		});
 
 		$("#button0").click(function () { 
-		  $("#iframePP_0").attr("src", "http://mafreebox.freebox.fr/");
+		  $("#iframe_0").attr("src", "http://mafreebox.freebox.fr/");
 		});
 		
 	</script
